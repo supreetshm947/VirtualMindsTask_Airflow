@@ -102,7 +102,7 @@ def build_image(artifacts_path, image_name, code_path="src/model_deployment", do
     finally:
         client.close()
 
-def containerize_docker_image(context, image_name, container_name):
+def containerize_docker_image(image_name, container_name):
     local_port = 8000
     container_port = 8000
 
@@ -117,9 +117,9 @@ def containerize_docker_image(context, image_name, container_name):
 
     try:
         subprocess.run(command, check=True)
-        context.log.info(f"Successfully deployed {container_name} from image {image_name} on port {local_port}.")
+        print(f"Successfully deployed {container_name} from image {image_name} on port {local_port}.")
     except subprocess.CalledProcessError as e:
-        context.log.info(f"Failed to deploy the container: {e}")
+        print(f"Failed to deploy the container: {e}")
 
 
 def push_docker_image_to_docker_hub(image_name, tag_name):

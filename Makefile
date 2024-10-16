@@ -84,29 +84,11 @@ unpause_dag:
 	airflow dags unpause daily_training
 	airflow dags unpause deploy_model
 
-trigger_dag:
-	airflow dags trigger daily_training
-
-run_dagster_dev:
-	dagster dev
-
-kill_dagster:
+kill_airflow:
 	pkill -f dagster
 
-run_dagster_prod:
-	@export DAGSTER_HOME=$(PWD)/dagster_home; \
-	rm -rf $$DAGSTER_HOME; \
-	mkdir -p $$DAGSTER_HOME; \
-	dagster-daemon run
-
-execute_daily_training:
-	@echo "Executing Daily Training job..."
-	dagster job execute -f src/dagster_project/definitions.py --job daily_training
-
-execute_deploy_job:
-	@echo "Executing Deploy job..."
-	dagster job execute -f src/dagster_project/definitions.py --job deploy_model_git
-
+start_test_pipeline_dag:
+	dotenv -f .env run airflow dags test $(TEST_TRAINING_PIPELINE_JOB) $(date -u +"%Y-%m-%dT%H:%M:%S")
 
 install_minikube:
 	echo "Installing Minikube"

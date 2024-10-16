@@ -10,14 +10,13 @@ from src.model_generation import train_random_forest
 from metrics import ACCURACY_GAUGE, PUSHGATEWAY_URL, registry
 from prometheus_client import push_to_gateway
 
-# Create default arguments for DAG
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 3,  # Corresponds to RetryPolicy
-    'retry_delay': timedelta(seconds=10),  # Retry delay of 10 seconds
+    'retries': 3,
+    'retry_delay': timedelta(seconds=10),
 }
 
 with DAG(
