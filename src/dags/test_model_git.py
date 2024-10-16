@@ -4,7 +4,7 @@ from airflow.utils.dates import days_ago
 import os
 import random
 from datetime import timedelta
-from src.utils import read_csv, download_model_artifact, build_image, containerize_docker_image
+from src.utils import read_csv, get_latest_mlflow_run, download_model_artifact, build_image, containerize_docker_image
 from src.model_generation import train_random_forest
 
 default_args = {
@@ -52,6 +52,13 @@ with DAG(
                 f"The accuracy of trained model {mlflow_run_name} is below the minimum accuracy threshold of {accuracy_threshold}.")
             raise Exception(f"Accuracy of {mlflow_run_name} too low.")
 
+    def get_latest_run(**context):
+        metric = os.getenv("MLFLOW_METRIC_ACCURACY")
+        latest_run = get_latest_mlflow_run()
+        print(
+            f"Selecting Model {latest_run.info.run_name} with run ID {latest_run.info.run_id} and accuracy:{metric}")
+
+        return latest_run.info.run_id
 
     def build_docker_image(**context):
         latest_run_id = context['ti'].xcom_pull(task_ids='get_latest_run')
@@ -74,6 +81,12 @@ with DAG(
         provide_context=True,
     )
 
+    get_latest_run_task = PythonOperator(
+        task_id='get_latest_run',
+        python_callable=get_latest_run,
+        provide_context=True,
+    )
+
     build_docker_image_task = PythonOperator(
         task_id='build_docker_image',
         python_callable=build_docker_image,
@@ -88,4 +101,4 @@ with DAG(
 
 
 
-    ingest_data_task >> train_model_task >> build_docker_image_task >> run_image_as_container_task
+    ingest_data_task >> train_model_task >> get_latest_run_task >> build_docker_image_task >> run_image_as_container_task
