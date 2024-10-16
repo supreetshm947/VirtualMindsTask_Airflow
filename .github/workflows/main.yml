@@ -1,8 +1,8 @@
-
-name: CI/CD Workflow
+name: CI
+run-name: Running training pipeline to ensure everything is good :)
 
 on:
-  workflow_dispatch:
+  push
 
 jobs:
   setup_build_eval:
