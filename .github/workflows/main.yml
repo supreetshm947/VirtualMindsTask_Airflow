@@ -1,0 +1,46 @@
+
+name: CI/CD Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup_build_eval:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      
+    - name: Rename .env_example to .env
+      run: mv .env_example .env
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential curl
+        # Install Docker
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+        sudo usermod -aG docker $USER
+
+    - name: Set Up Python Environment
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+
+    - name: Create MLFlow experiment, start Docker containers and build minio bucket
+      run: |
+          make run_git
+          
+    - name: Execute Training pipeline and deploy model
+      run: make start_test_pipeline_dag 
+
+  
+    - name: Test Prediction Endpoint
+      run: |
+          sleep 20
+          curl -X 'GET' "http://localhost:8000/predict?sepal_length=5.1&sepal_width=3.5&petal_length=1.4&petal_width=0.2" -H 'accept: application/json'
