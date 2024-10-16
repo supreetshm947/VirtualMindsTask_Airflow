@@ -47,5 +47,5 @@ jobs:
   
     - name: Test Prediction Endpoint
       run: |
-          sleep 20
+          sleep 5
           curl -X 'GET' "http://localhost:8000/predict?sepal_length=5.1&sepal_width=3.5&petal_length=1.4&petal_width=0.2" -H 'accept: application/json'
