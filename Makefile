@@ -41,7 +41,6 @@ up:
 	@echo "Starting Docker containers..."
 	docker compose up -d
 	@echo "Waiting for containers to start..."
-	@sleep 20
 
 # Stop docker containers
 down:
