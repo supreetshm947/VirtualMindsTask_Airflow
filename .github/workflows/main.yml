@@ -35,6 +35,10 @@ jobs:
     - name: Create MLFlow experiment, start Docker containers and build minio bucket
       run: |
           make run_git
+
+    - name: Setup Airflow
+      run: |
+          make setup_airflow
           
     - name: Execute Training pipeline and deploy model
       run: make start_test_pipeline_dag 
