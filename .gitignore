@@ -1,0 +1,12 @@
+.idea
+.venv
+tmp*
+__pycache__
+mlruns
+airflow_project.egg-info
+cache
+dagster_home
+image_volume
+
+test.py
+mlflow.db

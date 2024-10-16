@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-model-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mlflow-model
+  template:
+    metadata:
+      labels:
+        app: mlflow-model
+    spec:
+      containers:
+      - name: mlflow-model-container
+        image: supreetsharma94/model_deployment_api
+        ports:
+        - containerPort: 8000

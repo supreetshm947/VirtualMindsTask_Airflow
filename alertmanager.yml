@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: slack_alerts
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+
+receivers:
+  - name: 'slack_alerts'
+    slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'
+        channel: '#ml-workflow'
+        text: "{{ range .Alerts }}Alert: {{ .Labels.alertname }}\nSummary: {{ .Annotations.summary }}\nDescription: {{ .Annotations.description }}\n{{ end }}"

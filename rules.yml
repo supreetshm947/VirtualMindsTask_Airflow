@@ -1,0 +1,33 @@
+groups:
+  - name: no_run_timeout
+    rules:
+      - alert: NoRunTimeoutExceeded
+        expr: no_run_since_timeout > 36*3600
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Timeout since last run Reached!"
+          description: "The job {{ $labels.job_name }} has not run successfully in the last {{ humanizeDuration $value }}."
+
+  - name: high_model_accuracy
+    rules:
+      - alert: HighModelAccuracy
+        expr: model_accuracy >= 0.9
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Trained Model Accuracy met the threshold requirement!"
+          description: "The job {{ $labels.job_name }} has trained a model with accuracy {{ printf \"%.2f\" $value }}."
+
+  - name: run_taking_too_long
+    rules:
+      - alert: SLARunTakingTooLong
+        expr: run_duration >= 60
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SLA Broken : Pipeline is exceeding the allowable duration."
+          description: "The job {{ $labels.job_name }} took {{ printf \"%.2f\" $value }} seconds to finish."
