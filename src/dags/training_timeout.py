@@ -15,7 +15,7 @@ with DAG(
             'retry_delay': timedelta(seconds=10),
         },
         description='Sensor to check the timeout between training runs',
-        schedule_interval="*/1 * * * *",
+        schedule_interval="@hourly",
         start_date=days_ago(1),
         catchup=False,
 ) as dag:

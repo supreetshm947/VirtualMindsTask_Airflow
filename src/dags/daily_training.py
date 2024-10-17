@@ -23,7 +23,7 @@ with DAG(
     dag_id=os.getenv("DAILY_TRAINING_JOB_NAME"),
     default_args=default_args,
     description='Daily job to ingest data and train a model',
-    schedule_interval="*/2 * * * *",
+    schedule_interval="@daily",
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
