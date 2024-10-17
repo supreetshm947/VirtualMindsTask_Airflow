@@ -88,6 +88,7 @@ start_airflow: start_airflow_webserver start_airflow_scheduler
 unpause_dag:
 	airflow dags unpause daily_training
 	airflow dags unpause deploy_model
+	airflow dags unpause training_timeout
 
 kill_airflow:
 	pkill -f dagster
