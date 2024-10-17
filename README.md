@@ -39,7 +39,7 @@ The primary objectives of this project are:
 -  Install Python Requirements.
   
 ```bash
-   make setup_minikube
+   pip install -e .[dev]
 ```
  
 - Config Airflow
