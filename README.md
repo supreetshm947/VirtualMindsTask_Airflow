@@ -38,15 +38,15 @@ The primary objectives of this project are:
 2. **One time Setup**
 -  Install Python Requirements.
   
-```bash
-   pip install -e .[dev]
-```
+  ```bash
+  pip install -e .[dev]
+  ```
  
 - Config Airflow
   
-```bash
-   make setup_airflow
-```
+  ```bash
+  make setup_airflow
+  ```
 
 3. **Starting Project**
 - Create MLFlow experiment, start Docker containers, build minio bucket and start Minikube
