@@ -31,8 +31,13 @@ create-bucket:
 		echo "Bucket '$(MLFLOW_BUCKET)' created."; \
 	fi
 
+# set permissions to docker volumes
+set_volume_permissions:
+	mkdir -p ./grafana_data
+	sudo chmod -R 777 ./grafana_data
+
 # Run docker & create minio bucket
-run: create-experiment up create-bucket start_minikube
+run: create-experiment set_volume_permissions up create-bucket start_minikube
 
 run_git: create-experiment up create-bucket
 
