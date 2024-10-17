@@ -81,9 +81,9 @@ Pipeline Components
 
 ## 📈 **Monitoring and Alerts**
 
-  📡 Prometheus: Collects model performance metrics.
-  📊 InfluxDB: Stores metrics related to model accuracy and hyperparameters.
-  📉 Grafana: Visualizes metrics for real-time monitoring. Can be accessed at http://localhost:3000
+  - 📡 Prometheus: Collects model performance metrics.
+  - 📊 InfluxDB: Stores metrics related to model accuracy and hyperparameters.
+  - 📉 Grafana: Visualizes metrics for real-time monitoring. Can be accessed at http://localhost:3000
 
 ![Sample Grafana Dashboard](https://github.com/supreetshm947/VirtualMindsTask_Airflow/blob/main/grafana_dashboard.jpg)
 
