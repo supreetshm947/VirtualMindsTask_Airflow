@@ -85,4 +85,9 @@ Pipeline Components
     📊 InfluxDB: Stores metrics related to model accuracy and hyperparameters.
     📉 Grafana: Visualizes metrics for real-time monitoring. Can be accessed at http://localhost:3000
 
-Alerts can be configured in Grafana to notify you of performance degradation or other issues via Slack integration.
+![Sample Grafana Dashboard](https://github.com/supreetshm947/VirtualMindsTask_Airflow/blob/main/grafana_dashboard.jpg)
+
+Alerts are configured in Prometheus to notify you of performance degradation or other issues via Slack integration.
+
+![Sample Slack Alert](https://github.com/supreetshm947/VirtualMindsTask_Airflow/blob/main/slack_alert.jpg)
+
